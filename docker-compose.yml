@@ -1,0 +1,52 @@
+version: '3'
+networks:
+  test-ec:
+    name: ec-stack
+
+services:
+  vu-test:
+    image: webdevops/php-apache:7.4
+    container_name: vu-test
+    restart: always
+    user: application
+    networks:
+      - test-ec
+    environment:
+      - WEB_ALIAS_DOMAIN=vu-test.local:8068
+      - WEB_DOCUMENT_ROOT=/app/www/public
+      - PHP_DATE_TIMEZONE=EST
+      - PHP_DISPLAY_ERRORS=1
+      - PHP_MEMORY_LIMIT=5G
+      - PHP_MAX_EXECUTION_TIME=300
+      - PHP_POST_MAX_SIZE=500M
+      - PHP_UPLOAD_MAX_FILESIZE=10M
+      - WEB_DOCUMENT_INDEX=index.php
+    volumes:
+      - "./web:/app/www"
+    ports:
+      - "8068:80"
+  vu-test-mysql:
+    image: mysql
+    container_name: vu-test-mysql
+    restart: always
+    networks:
+      - test-ec
+    ports:
+      - "3311:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_USER=vutest
+      - MYSQL_PASSWORD=12345678x@X
+      - MYSQL_DATABASE=vutest_test
+      - innodb-buffer-pool-size=134217728
+    volumes:
+      - "./.docker/mysql:/var/lib/mysql"
+  redis:
+    image: redis:6.2.4-alpine
+    container_name: redis
+    networks:
+      - test-ec
+    ports:
+      - 6379:6379
+    volumes:
+      - ./.docker/redis-data:/data

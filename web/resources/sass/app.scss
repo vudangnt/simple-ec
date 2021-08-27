@@ -1,0 +1,78 @@
+@import 'variable';
+@import '~toastr';
+.size-sm {
+    width: 60px;
+}
+a {
+    text-decoration: none;
+}
+/*Header style*/
+header {
+    background-color: $baseColor;
+    padding: $distance;
+    .logo {
+        text-transform: uppercase;
+        a:hover {
+            color: white;
+        }
+    }
+    a {
+        text-decoration: none;
+        color: white;
+    }
+    .account-cart {
+        a {
+            color: white;
+        }
+    }
+    .minicart {
+        position: relative;
+        padding: 15px;
+        color: white;
+        cursor: pointer;
+        .minicart-wrapper {
+            position: absolute;
+            box-shadow: 4px 5px 8px rgb(0 0 0 / 30%);
+            transition: 0.3s ease-in-out;
+            transform: scale(0);
+            transform-origin: top right;
+            right: 0;
+            background-color: white;
+            color: #333;
+            a {
+                color: #333;
+                font-weight: bold;
+            }
+        }
+        &:hover {
+            .minicart-wrapper {
+                transform: scale(1);
+            }
+        }
+        ul {
+            padding: 0;
+            li {
+                list-style: none;
+                color: #333;
+            }
+        }
+        img {
+            max-width: 80px;
+        }
+    }
+}
+.decrease, .increase {
+    padding: .375rem .75rem;
+}
+h1 {
+    &.title {
+        font-size: 22px;
+        text-transform: uppercase;
+    }
+}
+footer {
+    margin-top: 3rem;
+    background-color: $baseColor;
+    padding: 3rem 0;
+    color: white;
+}
